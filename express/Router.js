@@ -1,17 +1,7 @@
 const url = require("url");
-const routes = [
-  {
-    path: "*",
-    method: "all",
-    handler: function (req, res) {
-      res.end(`${req.url}is not found`);
-    },
-  },
-];
-
 class Router {
   constructor() {
-    this._routes = routes;
+    this._routes = [];
   }
   get(path, handler) {
     this._routes.push({
@@ -20,7 +10,7 @@ class Router {
       handler,
     });
   }
-  handle(req, res) {
+  handleRequest(req, res, done) {
     const { pathname } = url.parse(req.url);
     const requestMethod = req.method.toLocaleLowerCase();
     for (let i = 0; i < this._routes.length; i++) {
@@ -30,8 +20,8 @@ class Router {
         return handler(req, res);
       }
     }
-    // 如果的都匹配不到，就走默认路由
-    this._routes[0].handler(req, res);
+    // 如果的都匹配不到，告诉app去处理
+    done();
   }
 }
 
