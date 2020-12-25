@@ -9,19 +9,29 @@ const app = express();
 app.get(
   "/",
   function (req, res, next) {
-    console.log("function1");
-    res.write("love you ");
-    // res.end("gg");
+    console.log("get fn1");
+    res.write("GET 1111");
     next();
   },
   function (req, res, next) {
-    console.log("function2");
-    res.end("home page");
+    console.log("get fn2");
+    res.end("GET 2222");
     next();
   }
 );
-app.get("/", function (req, res, next) {
-  console.log("function3");
+
+app.post("/", function (req, res, next) {
+  console.log("post");
+  res.end("post");
+});
+
+app.put("/", function (req, res, next) {
+  console.log("put");
+  res.end("put");
+});
+app.delete("/", function (req, res, next) {
+  console.log("delete");
+  res.end("delete");
 });
 
 app.listen(3000, () => {
