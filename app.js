@@ -16,21 +16,18 @@ app.get(
   function (req, res, next) {
     console.log("get fn2");
     res.end("GET 2222");
-    next();
+    // next();
   }
 );
 
 app.post("/", function (req, res, next) {
-  console.log("post");
   res.end("post");
 });
 
 app.put("/", function (req, res, next) {
-  console.log("put");
   res.end("put");
 });
 app.delete("/", function (req, res, next) {
-  console.log("delete");
   res.end("delete");
 });
 

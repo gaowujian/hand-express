@@ -3,6 +3,8 @@ const methods = require("methods");
 
 function Route() {
   this.stack = [];
+  // 表明这个route所在的layer支持哪几种方法
+  this.methods = {};
 }
 
 methods.forEach((method) => {
@@ -10,6 +12,7 @@ methods.forEach((method) => {
     handlers.forEach((handler) => {
       const layer = new Layer("*", handler);
       layer.method = method;
+      this.methods[method] = true;
       this.stack.push(layer);
     });
   };
@@ -25,6 +28,7 @@ Route.prototype.dispatch = function (req, res, done) {
       return done();
     }
     const layer = this.stack[idx++];
+    // console.log("exec");
     if (layer.method === requestMethod) {
       layer.handle(req, res, next);
     } else {

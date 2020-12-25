@@ -16,6 +16,11 @@ function Layer(path, handle) {
   this.handle = handle;
 }
 
+// 可以自定义匹配规则
+Layer.prototype.match = function (pathname) {
+  return this.path === pathname;
+};
+
 module.exports = Layer;
 
 // 最开始的路由系统
